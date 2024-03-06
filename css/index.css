@@ -1,0 +1,338 @@
+:root {
+    --gameBoyColor: #273a86;
+    --gameBoyColor2: #4c534f;
+    --gameBoyColor3: #f8f8f8;
+    --gameBoyColor4: #232522;
+    --gameBoyAnimationColor: #ec25ed;
+    --gameBoyAnimationColor2: #1210ff;
+    --gameBoyAnimationColor3: #0094ff;
+    --gameBoyAnimationColor4: #00e3bf;
+    --gameBoyAnimationColor5: #01da12;
+    --gameBoyAnimationColor6: #73e300;
+    --gameBoyAnimationColor7: #ffd400;
+    --gameBoyAnimationColor8: #ff4702;
+    --gameBoyAnimationColor9: #ff2f01;
+    --gameBoyAnimationColor10: #ff207d;
+    --dsColor: #44bce1;
+    --dsColor2: #2a2c2b;
+    --dsColor3: #fcfcfc;
+    --primaryFont: "GameCube", sans-serif;
+    --secondaryFont: "Futura Condensed", sans-serif;
+}
+
+main,
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    flex-direction: column;
+}
+
+section {
+    width: 30rem;
+    background-color: var(--gameBoyColor);
+    color: var(--gameBoyColor3);
+    border-radius: 1em;
+    border: 2px solid var(--gameBoyColor2);
+}
+
+section:nth-of-type(1) {
+    height: 24rem;
+}
+
+main div {
+    height: 3rem;
+    width: 30rem;
+    background-color: var(--gameBoyColor);
+    border-radius: 2em;
+}
+
+button {
+    background-color: var(--gameBoyColor2);
+
+}
+
+section:nth-of-type(2) {
+    height: 26rem;
+}
+
+section:nth-of-type(1) article {
+    background-color: var(--gameBoyColor4);
+    color: var(--gameBoyColor3);
+    width: 85%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section:nth-of-type(1) article div {
+    background-color: var(--gameBoyColor2);
+    color: var(--gameBoyColor3);
+    width: 85%;
+    height: 80%;
+}
+
+section:nth-of-type(2) article {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+section:nth-of-type(2) article fieldset,
+section:nth-of-type(2) article div {
+    position: absolute;
+}
+
+fieldset {
+
+    border-radius: 999em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+
+
+
+
+/********************/
+/*****HELDERHEID*****/
+/********************/
+section:nth-of-type(2) article fieldset:nth-of-type(1) {
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0;
+    border-radius: 50%;
+}
+
+section:nth-of-type(2) article fieldset:nth-of-type(1) button {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+}
+
+
+
+
+
+/****************/
+/*****VOLUME*****/
+/****************/
+section:nth-of-type(2) article fieldset:nth-of-type(2) {
+    top: 20%;
+    left: 0;
+    display: flex;
+    align-items: baseline;
+    transform: translateX(-50%);
+    border: none;
+}
+
+section:nth-of-type(2) article fieldset:nth-of-type(2) input {
+    transform: rotateZ(-90deg);
+
+}
+
+
+
+
+
+/*****************/
+/*****AAN/UIT*****/
+/*****************/
+section:nth-of-type(2) article fieldset:nth-of-type(3) {
+    top: 20%;
+    right: 0;
+    transform: translateX(50%);
+    border: none;
+}
+
+
+
+
+
+/******************/
+/*****PIJLTJES*****/
+/******************/
+section:nth-of-type(2) article fieldset:nth-of-type(4) {
+    top: 25%;
+    left: 10%;
+    display: grid;
+    grid-template-areas:
+        ".    up   ."
+        "left  .  right"
+        ".    down  .";
+    grid-template-columns: repeat(3, 1fr);
+    width: 6rem;
+    height: 6rem;
+    aspect-ratio: 1;
+    transition: .1s;
+}
+
+section:nth-of-type(2) article fieldset:nth-of-type(4) button {
+    width: 2rem;
+    height: 2rem;
+}
+
+fieldset:nth-of-type(4) button:nth-of-type(1) {
+    grid-area: up;
+}
+
+
+fieldset:nth-of-type(4) button:nth-of-type(2) {
+    grid-area: left;
+}
+
+fieldset:nth-of-type(4)::after {
+    content: "";
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    background-color: var(--gameBoyColor2);
+    width: 2rem;
+    height: 2rem;
+}
+
+fieldset:nth-of-type(4) button:nth-of-type(3) {
+    grid-area: right;
+}
+
+fieldset:nth-of-type(4) button:nth-of-type(4) {
+    grid-area: down;
+}
+
+
+fieldset:nth-of-type(4):has(button:nth-of-type(1):active) {
+    transform: perspective(20em) rotateX(10deg);
+}
+
+fieldset:nth-of-type(4):has(button:nth-of-type(2):active) {
+    transform: perspective(20em) rotateY(-10deg);
+}
+
+fieldset:nth-of-type(4):has(button:nth-of-type(3):active) {
+    transform: perspective(20em) rotateY(10deg);
+}
+
+fieldset:nth-of-type(4):has(button:nth-of-type(4):active) {
+    transform: perspective(20em) rotateX(-10deg);
+}
+
+
+
+
+
+
+/*************/
+/*****A/B*****/
+/*************/
+section:nth-of-type(2) article fieldset:nth-of-type(5) {
+    top: 25%;
+    right: 10%;
+    width: 9.5rem;
+    height: 4rem;
+    transform: rotateZ(-25deg);
+    display: flex;
+    justify-content: space-evenly;
+}
+
+section:nth-of-type(2) article fieldset:nth-of-type(5) button {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: var(--gameBoyColor2);
+    color: var(--gameBoyColor4);
+    font-size: 1.5em;
+    transition: .1s;
+    transform: rotateZ(25deg);
+}
+
+
+
+
+
+/**********************/
+/*****SELECT&START*****/
+/**********************/
+section:nth-of-type(2) article fieldset:nth-of-type(6) {
+    width: 4rem;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-between;
+}
+
+
+section:nth-of-type(2) article fieldset:nth-of-type(6) button::before {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -1em;
+
+}
+
+section:nth-of-type(2) article fieldset:nth-of-type(6) button:nth-of-type(1)::before {
+    content: "SELECT";
+
+}
+
+section:nth-of-type(2) article fieldset:nth-of-type(6) button:nth-of-type(2)::before {
+    content: "START";
+
+}
+
+section:nth-of-type(2) article fieldset:nth-of-type(6) button {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: var(--gameBoyColor2);
+    color: var(--gameBoyColor4);
+    font-size: 1.5em;
+    transition: .1s;
+}
+
+
+
+
+
+/*****************/
+/*****LAMPJES*****/
+/*****************/
+section:nth-of-type(2) article div:nth-of-type(1) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 10%;
+    right: 0;
+    width: 0.5rem;
+    height: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+section:nth-of-type(2) article div:nth-of-type(1) span {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: var(--gameBoyColor2);
+    border-radius: none;
+
+}
+
+
+
+/*****************/
+/*****SPEAKER*****/
+/*****************/
+section:nth-of-type(2) article div:nth-of-type(2) {
+    bottom: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+}
