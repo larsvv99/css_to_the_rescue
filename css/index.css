@@ -1,9 +1,12 @@
 :root {
+    --backgroundColor: linear-gradient(#becbfc 0 0);
     --gameBoyColor: #273a86;
     --gameBoyColor2: #53514c;
     --gameBoyColor3: #f8f8f8;
     --gameBoyColor4: #232522;
     --gameBoyColor5: #848074;
+    --gameBoyColor6: #13225f;
+    --gameBoyColor7: #344aa3;
     --gameBoyAnimationColor: #ec25ed;
     --gameBoyAnimationColor2: #1210ff;
     --gameBoyAnimationColor3: #0094ff;
@@ -14,12 +17,91 @@
     --gameBoyAnimationColor8: #ff4702;
     --gameBoyAnimationColor9: #ff2f01;
     --gameBoyAnimationColor10: #ff207d;
-    --dsColor: #44bce1;
-    --dsColor2: #2a2c2b;
-    --dsColor3: #fcfcfc;
     --nintendoColor: #000000;
+    --pixelColor1: #000000;
+    --pixelColor2: #ffffff;
+    --charmanderColor1: #FE8302;
+    --charmanderColor2: #FEFF8F;
+    --charmanderColor3: #FF3518;
+    --charmanderColor4: #F38EA6;
+    --charmanderColor5: #ffe76d;
     --primaryFont: "GameCube", sans-serif;
     --secondaryFont: "Futura Condensed", sans-serif;
+    --tertiaryFont: "Press Start 2P", sans-serif;
+}
+
+:root:has([value="red"]:checked) {
+    --theme: red;
+}
+
+:root:has([value="dark"]:checked) {
+    --theme: dark;
+}
+
+:root:has([value="disco"]:checked) {
+    --theme: disco;
+}
+
+
+@container style(--theme: red) {
+    body {
+        --gameBoyColor: #E53A33;
+        --gameBoyColor6: #7C1D23;
+        --gameBoyColor7: #F3705C;
+        --backgroundColor: linear-gradient(#f9bbb8 0 0);
+    }
+}
+
+@container style(--theme: dark) {
+    body {
+        --gameBoyColor: #2C2D27;
+        --gameBoyColor6: #161714;
+        --gameBoyColor7: #5F5E59;
+        --backgroundColor: linear-gradient(#7b7b7b 0 0);
+    }
+}
+
+@container style(--theme: disco) {
+    body {
+        --gameBoyColor: #C0C0C0;
+        --gameBoyColor6: #8E8888;
+        --gameBoyColor7: #E2E5E4;
+        --backgroundColor: linear-gradient(45deg,
+                crimson,
+                darkorange,
+                gold,
+                yellowgreen,
+                dodgerblue,
+                rebeccapurple,
+                crimson,
+                darkorange,
+                gold,
+                yellowgreen,
+                dodgerblue,
+                rebeccapurple,
+                crimson);
+        background-size: 200% 200%;
+        background-position: left bottom;
+        animation: rainbow 4s linear infinite;
+    }
+}
+
+body {
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    align-items: center;
+    background-image: var(--backgroundColor);
+}
+
+@keyframes rainbow {
+    from {
+        background-position: left bottom;
+    }
+
+    to {
+        background-position: right top;
+    }
 }
 
 main,
@@ -31,15 +113,18 @@ section {
 }
 
 main {
+    margin-top: -2rem;
     flex-direction: column;
+    transform: scale(0.9);
 }
 
 section {
     width: 30rem;
-    background-image: linear-gradient(45deg, #13225f, var(--gameBoyColor), #344aa3);
+    background-image: linear-gradient(45deg, var(--gameBoyColor6), var(--gameBoyColor), var(--gameBoyColor7));
     color: var(--gameBoyColor3);
     border-radius: 1em;
-    border: 2px solid var(--gameBoyColor2);
+    box-shadow:
+        0px 5px 6px 4px rgba(0, 0, 0, 0.2);
 }
 
 section:nth-of-type(1) {
@@ -49,9 +134,14 @@ section:nth-of-type(1) {
 main section+div {
     height: 3rem;
     width: 30rem;
-    background-color: var(--gameBoyColor);
+    background-image: linear-gradient(0deg, var(--gameBoyColor6), var(--gameBoyColor), var(--gameBoyColor7), var(--gameBoyColor));
     border-radius: 2em;
+    box-shadow: inset 0px -5px 6px 5px rgba(0, 0, 0, 0.5),
+        inset 1px 0px 6px 30px rgba(255, 255, 255, 0.1),
+        0px 5px 3px 1px rgba(0, 0, 0, 0.2);
+    z-index: 2;
 }
+
 
 h1 {
     font-size: 0.8em;
@@ -61,18 +151,93 @@ h1 {
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
     transform: scale(1.2);
+
 }
 
 h1 svg {
     width: 8rem;
 }
 
-h1 svg g * {
+section:nth-of-type(1) article h1 svg g * {
+    opacity: 100%;
+    fill: var(--gameBoyColor5);
+
+}
+
+h1 svg:nth-of-type(1) g path {
+    opacity: 100%;
     fill: var(--gameBoyColor5);
 }
 
 h1 svg:first-child {
+    opacity: 100%;
     fill: var(--nintendoColor);
+}
+
+label {
+    font-family: var(--tertiaryFont);
+}
+
+label input {
+    width: 1.5rem;
+    height: 1.5rem;
+    appearance: none;
+    transition: 200ms;
+    background-color: white;
+    position: relative;
+}
+
+label input:before {
+    content: "";
+    rotate: -45deg;
+    position: absolute;
+}
+
+label input:checked:before {
+    width: 1.5rem;
+    height: .75rem;
+    bottom: 50%;
+    left: -10%;
+}
+
+label:nth-of-type(1) input:checked {
+    border: 4px solid blue;
+}
+
+label:nth-of-type(1) input:checked:before {
+    border-bottom: blue 3px solid;
+    border-left: blue 3px solid;
+}
+
+label:nth-of-type(2) input:checked {
+    border: 4px solid red;
+}
+
+label:nth-of-type(2) input:checked:before {
+    border-bottom: red 3px solid;
+    border-left: red 3px solid;
+}
+
+label:nth-of-type(3) input:checked {
+    border: 4px solid transparent;
+    border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+    border-image-slice: 1;
+}
+
+label:nth-of-type(3) input:checked:before {
+    border-bottom: 3px solid transparent;
+    border-left: 3px solid transparent;
+    border-image: linear-gradient(to bottom right, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+    border-image-slice: 1;
+}
+
+label:nth-of-type(4) input:checked {
+    border: 4px solid black;
+}
+
+label:nth-of-type(4) input:checked:before {
+    border-bottom: black 3px solid;
+    border-left: black 3px solid;
 }
 
 
@@ -102,8 +267,7 @@ section:nth-of-type(1) article {
 }
 
 section:nth-of-type(1) article div {
-    background-color: var(--gameBoyColor2);
-    /* background-image: url(../images/hqdefault.jpg); */
+    background-image: linear-gradient(var(--gameBoyColor2) 0 0);
     color: var(--gameBoyColor3);
     width: 92%;
     height: 83%;
@@ -111,7 +275,15 @@ section:nth-of-type(1) article div {
     background-size: cover;
     background-position: center;
 
+
     &::before {
+        content: "";
+        inset: 0;
+        position: absolute;
+    }
+
+    /*Bron: weerspiegeling (linear-gradient) https: //codepen.io/simeydotme/pen/PrQKgo*/
+    &::after {
         content: "";
         inset: 0;
         position: absolute;
@@ -124,15 +296,12 @@ section:nth-of-type(1) article div {
                 transparent 100%);
         mix-blend-mode: color-dodge;
         opacity: 0.4;
+        z-index: 5;
     }
 }
 
 /* section:nth-of-type(1) article div  */
 
-html:has(input:checked) section:nth-of-type(1) article div {
-    background-color: var(--gameBoyColor3);
-    animation: turnOn 1s forwards;
-}
 
 section:nth-of-type(2) article {
     width: 100%;
@@ -146,7 +315,6 @@ section:nth-of-type(2) article div {
 }
 
 fieldset {
-
     border-radius: 999em;
     display: flex;
     border: 2px solid var(--gameBoyColor1);
@@ -173,21 +341,42 @@ section:nth-of-type(2) article fieldset:nth-of-type(1) {
     box-shadow: inset 0px 5px 1px 3px rgba(0, 0, 0, 0.5),
         inset 0px -5px 2px 3px rgba(255, 255, 255, 0.1),
         1px -1px 0px 0px rgba(255, 255, 255, 0.4);
+    display: grid;
 }
 
-section:nth-of-type(2) article fieldset:nth-of-type(1) button {
+section:nth-of-type(2) article fieldset:nth-of-type(1) input {
+    background-color: var(--gameBoyColor2);
+    border: none;
+    box-shadow: inset 0px -1px 1px 1px rgba(0, 0, 0, 0.5),
+        inset 0px 1px 1px 1px rgba(255, 255, 255, 0.1),
+        inset -1px 1px 0px 0px rgba(255, 255, 255, 0.2), 0px 0px 1px 2px rgba(0, 0, 0, 0.5);
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+    grid-area: 1/1;
+
+    &::after {
+        content: "";
+        background-image: url(../images/helderheid.svg);
+        background-size: 80%;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+    }
+
 }
 
-section:nth-of-type(2) article fieldset:nth-of-type(1) button svg {
-    fill: var(--gameBoyColor4);
-    transform: scale(1.5);
-    opacity: 0.5;
+section:nth-of-type(2) article fieldset:nth-of-type(1) input:active {
+    scale: 0.9;
+}
+
+html:has(form fieldset:nth-of-type(1) input:nth-of-type(2):checked) section:nth-of-type(1) article div {
+    opacity: 0.8;
 }
 
 
@@ -258,24 +447,29 @@ section:nth-of-type(2) article fieldset:nth-of-type(3) {
     border: none;
 }
 
-section:nth-of-type(2) article fieldset:nth-of-type(3) input::before {
-    content: "";
-    width: 0.6rem;
-    height: 1rem;
-    position: absolute;
-    top: 1.3rem;
-    right: -0.4rem;
-    background-color: var(--gameBoyColor2);
+section:nth-of-type(2) article fieldset:nth-of-type(3) input {
+    &::before {
+        content: "";
+        width: 0.6rem;
+        height: 1rem;
+        position: absolute;
+        top: 1.3rem;
+        right: -0.4rem;
+        background-color: var(--gameBoyColor2);
+    }
+
+    &::after {
+        content: "";
+        width: 0.3rem;
+        height: 3rem;
+        position: absolute;
+        right: -0.1rem;
+        background-color: var(--gameBoyColor2);
+    }
 }
 
-section:nth-of-type(2) article fieldset:nth-of-type(3) input::after {
-    content: "";
-    width: 0.3rem;
-    height: 3rem;
-    position: absolute;
-    right: -0.1rem;
-    background-color: var(--gameBoyColor2);
-}
+
+
 
 section:nth-of-type(2) article fieldset:nth-of-type(3) input:checked::before {
     content: "";
@@ -315,6 +509,7 @@ section:nth-of-type(2) article fieldset:nth-of-type(4) {
         1px 0px 1px 0px rgba(255, 255, 255, 0.4);
 }
 
+/*Bron kruis button: https: //codepen.io/shooft/pen/BaEabXy*/
 section:nth-of-type(2) article fieldset:nth-of-type(4) div {
     position: relative;
     top: 0;
@@ -332,7 +527,6 @@ section:nth-of-type(2) article fieldset:nth-of-type(4) div {
     filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5)) drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5));
 
     &::before {
-
         content: "";
         position: absolute;
         top: 0;
@@ -342,10 +536,7 @@ section:nth-of-type(2) article fieldset:nth-of-type(4) div {
         background-color: var(--gameBoyColor2);
         box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.5);
         z-index: -1;
-
     }
-
-
 }
 
 section:nth-of-type(2) article fieldset:nth-of-type(4) button {
@@ -369,6 +560,7 @@ fieldset:nth-of-type(4) span span {
     box-shadow: 0 0 1px 1px #000;
 }
 
+/*Bron kruis shadow: https: //sinds1971.nl/spelenmetcss/2022-feb/stephan/index.html*/
 fieldset:nth-of-type(4) span span:first-child {
     width: 100%;
     aspect-ratio: 3 / 1;
@@ -411,11 +603,18 @@ section:nth-of-type(2) article fieldset:nth-of-type(4) button:nth-of-type(1) {
     border-bottom: none;
 }
 
+html:has(section:nth-of-type(2) article fieldset:nth-of-type(4) button:nth-of-type(1):active) section:nth-of-type(1) article div span:nth-of-type(1) {
+    transform: translateY(-2rem);
+}
 
 section:nth-of-type(2) article fieldset:nth-of-type(4) button:nth-of-type(2) {
     grid-area: left;
     border-right: none;
     box-shadow: inset 2px -1px 1px 1px rgba(0, 0, 0, 0.5), inset 2px -1px 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+html:has(section:nth-of-type(2) article fieldset:nth-of-type(4) button:nth-of-type(2):active) section:nth-of-type(1) article div span:nth-of-type(1) {
+    transform: translateX(-6rem) rotateY(-180deg);
 }
 
 section:nth-of-type(2) article fieldset:nth-of-type(4) button:nth-of-type(3) {
@@ -424,12 +623,19 @@ section:nth-of-type(2) article fieldset:nth-of-type(4) button:nth-of-type(3) {
     box-shadow: inset -2px -1px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
+html:has(section:nth-of-type(2) article fieldset:nth-of-type(4) button:nth-of-type(3):active) section:nth-of-type(1) article div span:nth-of-type(1) {
+    transform: translateX(3rem);
+}
+
 section:nth-of-type(2) article fieldset:nth-of-type(4) button:nth-of-type(4) {
     grid-area: down;
     border-top: none;
     box-shadow: inset 0px -2px 1px 1px rgba(0, 0, 0, 0.5);
 }
 
+html:has(section:nth-of-type(2) article fieldset:nth-of-type(4) button:nth-of-type(4):active) section:nth-of-type(1) article div span:nth-of-type(1) {
+    transform: rotateZ(90deg) translateY(-3rem)translateX(8rem);
+}
 
 fieldset:nth-of-type(4) div:has(button:nth-of-type(1):active) {
     transform: perspective(20em) rotateX(12deg);
@@ -478,10 +684,11 @@ section:nth-of-type(2) article fieldset:nth-of-type(5) button {
     font-size: 1.5em;
     transition: .1s;
     transform: rotateZ(20deg);
+
+    &:active {
+        transform: scale(0.9) rotateZ(20deg);
+    }
 }
-
-
-
 
 
 /**********************/
@@ -514,21 +721,12 @@ section:nth-of-type(2) article fieldset:nth-of-type(6) span {
 
 }
 
-section:nth-of-type(2) article fieldset:nth-of-type(6) span button::before {
+section:nth-of-type(2) article fieldset:nth-of-type(6) span p {
     position: absolute;
-    transform: translateX(-50%);
-    top: -1rem;
+    top: -1.5rem;
     text-transform: uppercase;
-    font-size: 0.6em;
-
-}
-
-section:nth-of-type(2) article fieldset:nth-of-type(6) span:nth-of-type(1) button::before {
-    content: "Select";
-}
-
-section:nth-of-type(2) article fieldset:nth-of-type(6) span:nth-of-type(2) button::before {
-    content: "Start";
+    font-size: 0.7em;
+    color: var(--gameBoyColor6);
 
 }
 
@@ -540,7 +738,13 @@ section:nth-of-type(2) article fieldset:nth-of-type(6) button {
     color: var(--gameBoyColor4);
     font-size: 1.5em;
     transition: .1s;
+
+    &:active {
+        transform: scale(0.9);
+    }
 }
+
+
 
 
 
@@ -569,13 +773,13 @@ section:nth-of-type(2) article div:nth-of-type(1) span {
     border-radius: none;
 }
 
-html:has(input:checked) section:nth-of-type(2) article div:nth-of-type(1) span:nth-of-type(1) {
+html:has(fieldset:nth-of-type(3) input:checked) section:nth-of-type(2) article div:nth-of-type(1) span:nth-of-type(1) {
     background-color: var(--gameBoyAnimationColor6);
-    animation: emty 1s forwards;
+    animation: empty 1s forwards;
     animation-delay: 5s;
 }
 
-@keyframes emty {
+@keyframes empty {
     0% {
         background-color: var(--gameBoyAnimationColor6);
     }
@@ -606,4 +810,1473 @@ section:nth-of-type(2) article div:nth-of-type(2) {
     transform: translateX(-50%);
     background-image: radial-gradient(var(--gameBoyColor4) 20%, transparent 0);
     background-size: 25% 25%;
+}
+
+
+
+/*********************/
+/*****BEELDSCHERM*****/
+/*********************/
+div svg {
+    opacity: 0;
+}
+
+html:has(fieldset:nth-of-type(3) input:checked) section:nth-of-type(1) div {
+    animation-name: backgrounds;
+    transform-origin: center bottom;
+    animation-duration: 6s;
+    animation-fill-mode: forwards;
+}
+
+html:has(fieldset:nth-of-type(3) input:checked) section:nth-of-type(1) div svg,
+html:has(fieldset:nth-of-type(3) input:checked) section:nth-of-type(1) div p {
+    overflow: visible;
+    animation-name: start;
+    transform-origin: center bottom;
+    animation-duration: 5s;
+    animation-fill-mode: forwards;
+    margin-left: 1rem;
+}
+
+html:has(fieldset:nth-of-type(3) input:checked) section:nth-of-type(1) div svg path,
+html:has(fieldset:nth-of-type(3) input:checked) section:nth-of-type(1) div svg polygon {
+    animation-name: bounce;
+    transform-origin: center bottom;
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+}
+
+section:nth-of-type(1) article div svg:nth-of-type(1) path,
+section:nth-of-type(1) article div svg:nth-of-type(1) polygon {
+    opacity: 0;
+}
+
+
+
+/*G*/
+section:nth-of-type(1) div svg:nth-of-type(1) path:nth-of-type(3) {
+    animation-delay: 0s;
+}
+
+/*A*/
+section:nth-of-type(1) div svg:nth-of-type(1) path:nth-of-type(4) {
+    animation-delay: 0.1s;
+}
+
+/*M*/
+section:nth-of-type(1) div svg:nth-of-type(1) path:nth-of-type(6) {
+    animation-delay: 0.2s;
+}
+
+
+/*E*/
+section:nth-of-type(1) div svg:nth-of-type(1) path:nth-of-type(5) {
+    animation-delay: 0.3s;
+}
+
+/*B*/
+section:nth-of-type(1) div svg:nth-of-type(1) path:nth-of-type(1) {
+    animation-delay: 0.4s;
+}
+
+/*O*/
+section:nth-of-type(1) div svg:nth-of-type(1) path:nth-of-type(2) {
+    animation-delay: 0.5s;
+}
+
+/*Y*/
+section:nth-of-type(1) div svg:nth-of-type(1) polygon {
+    animation-delay: 0.6s;
+}
+
+section:nth-of-type(1) p {
+    font-family: var(--tertiaryFont);
+    font-weight: bold;
+    color: var(--gameBoyAnimationColor);
+    text-align: center;
+    opacity: 0;
+    margin: 0;
+}
+
+@keyframes start {
+
+    0% {
+        opacity: 100%;
+    }
+
+    90% {
+        opacity: 100%;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/*Bron bounce stukje: https: //codepen.io/RoelN/pen/abxZdjm*/
+@keyframes bounce {
+    0% {
+        fill: var(--gameBoyAnimationColor);
+        transform: scale(2) translateX(20em) translateY(50em);
+        opacity: 0;
+    }
+
+    10% {
+        fill: var(--gameBoyAnimationColor9);
+
+    }
+
+    20% {
+        fill: var(--gameBoyAnimationColor7);
+    }
+
+    30% {
+        fill: var(--gameBoyAnimationColor5);
+        opacity: 100%;
+    }
+
+    40% {
+        fill: var(--gameBoyAnimationColor3);
+
+    }
+
+    47.5% {
+        transform: scale(1) translateX(0em) translateY(0em);
+    }
+
+    50% {
+        fill: var(--gameBoyAnimationColor2);
+    }
+
+    52.5% {
+        transition-timing-function: ease-in-out;
+        transform: translateY(-150px);
+    }
+
+    57.5% {
+        transition-timing-function: ease-in-out;
+        transform: translateY(0);
+    }
+
+    60% {
+        fill: var(--gameBoyAnimationColor2);
+        transition-timing-function: ease-in-out;
+        transform: translateY(-75px);
+    }
+
+    62.5% {
+        transition-timing-function: ease-in-out;
+        transform: translateY(0);
+    }
+
+    65% {
+        fill: var(--gameBoyAnimationColor2);
+    }
+
+    70% {
+        fill: var(--gameBoyAnimationColor);
+    }
+
+
+    80% {
+        fill: var(--gameBoyAnimationColor);
+    }
+
+    90% {
+        fill: var(--gameBoyAnimationColor2);
+    }
+
+    100% {
+        fill: var(--gameBoyAnimationColor2);
+        opacity: 100%;
+    }
+}
+
+@keyframes pokemon {
+
+    0% {
+        opacity: 0;
+    }
+
+    90% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 100%;
+        z-index: 5;
+    }
+}
+
+@keyframes backgrounds {
+
+    0% {
+        background-image: linear-gradient(white 0 0);
+    }
+
+    90% {
+        background-image: linear-gradient(white 0 0);
+    }
+
+    100% {
+        background-image: linear-gradient(0deg, #49E25E 0 40%, #1D845C 70%, #5EC5EE 75% 100%);
+    }
+}
+
+
+embed {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+fieldset:nth-of-type(3) input[type="checkbox"]:checked+embed {
+    display: block;
+}
+
+section:nth-of-type(1) article div span:nth-of-type(2) {
+    background-color: var(--gameBoyColor3);
+    position: absolute;
+    width: 100%;
+    height: 4rem;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+}
+
+section:nth-of-type(1) article div span:nth-of-type(2) p {
+    color: var(--gameBoyColor4);
+    font-size: large;
+}
+
+
+/* Pokemon */
+/*Bron pixelart: https: //sinds1971.nl/spelenmetcss/2022-feb/stephan/index.html*/
+html:has(fieldset:nth-of-type(3) input:checked) section:nth-of-type(1) article div span:nth-of-type(1) {
+    --pixel-size: 5px;
+    width: var(--pixel-size);
+    aspect-ratio: 1 / 1;
+    position: absolute;
+    left: 55%;
+    top: 30%;
+    opacity: 0;
+    background-color: #000000;
+    animation-name: pokemon;
+    animation-duration: 6s;
+    animation-fill-mode: forwards;
+
+    box-shadow: calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 0) var(--pixelColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 0) var(--pixelColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 0) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 1) var(--pixelColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 1) var(--pixelColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 1) var(--pixelColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 1) var(--pixelColor2),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 2) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 2) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 2) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 2) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 2) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 2) var(--pixelColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 2) var(--pixelColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 2) var(--pixelColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 2) var(--pixelColor2),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 3) var(--charmanderColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 3) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 3) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 3) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 3) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 3) var(--pixelColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 3) var(--pixelColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 3) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 3) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 3) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 4) var(--charmanderColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 4) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 4) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 4) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 4) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 4) var(--pixelColor2),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 4) var(--pixelColor2),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 4) var(--pixelColor2),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 4) var(--charmanderColor3),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 4) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 4) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 4) var(--pixelColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 4) var(--pixelColor2),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 4) var(--pixelColor2),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 5) var(--charmanderColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 5) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 5) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 5) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 5) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 5) var(--pixelColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 5) var(--pixelColor2),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 5) var(--pixelColor2),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 5) var(--pixelColor2),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 5) var(--pixelColor2),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 5) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 5) var(--charmanderColor3),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 5) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 5) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 5) var(--charmanderColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 5) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 5) var(--pixelColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 5) var(--pixelColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 5) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 6) var(--pixelColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 6) var(--pixelColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 6) var(--charmanderColor2),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* -17) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 6) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 6) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 7) var(--pixelColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 7) var(--pixelColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 7) var(--charmanderColor3),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 7) var(--charmanderColor2),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* -17) calc(var(--pixel-size)* 7) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 7) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 7) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 8) var(--pixelColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 8) var(--pixelColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 8) var(--pixelColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 8) var(--charmanderColor3),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 8) var(--charmanderColor2),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -17) calc(var(--pixel-size)* 8) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 8) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 9) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 9) var(--charmanderColor3),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 9) var(--charmanderColor3),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 9) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 9) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 10) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 10) var(--pixelColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 10) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 10) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 10) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 12) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 12) var(--pixelColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 12) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 12) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 13) var(--pixelColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 13) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 13) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 13) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 14) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 14) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 14) var(--pixelColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 14) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 14) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 14) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 15) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 15) var(--charmanderColor2),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 15) var(--pixelColor1),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 15) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 15) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 15) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 15) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 15) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 16) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 16) var(--charmanderColor2),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 16) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 16) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 16) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 16) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 16) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 16) var(--charmanderColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 16) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 17) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 17) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 17) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 17) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 18) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 18) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 18) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 19) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 19) var(--charmanderColor2),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 19) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 19) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 19) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 19) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 19) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 19) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 19) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 21) var(--pixelColor1);
+}
+
+html:has(section:nth-of-type(2) article fieldset:nth-of-type(5) button:nth-of-type(1):active) section:nth-of-type(1) article div span:nth-of-type(1) {
+    --pixel-size: 5px;
+    width: var(--pixel-size);
+    aspect-ratio: 1 / 1;
+    position: absolute;
+    left: 55%;
+    top: 30%;
+    transition: 0s;
+    background-color: #000000;
+    z-index: -5;
+
+    box-shadow: calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 0) var(--pixelColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 0) var(--pixelColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 0) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 1) var(--pixelColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 1) var(--pixelColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 1) var(--pixelColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 1) var(--pixelColor2),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 2) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 2) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 2) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 2) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 2) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 2) var(--pixelColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 2) var(--pixelColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 2) var(--pixelColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 2) var(--pixelColor2),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 3) var(--charmanderColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 3) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 3) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 3) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 3) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 3) var(--pixelColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 3) var(--pixelColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 3) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 3) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 3) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 4) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 4) var(--pixelColor2),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 4) var(--pixelColor2),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 4) var(--pixelColor2),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 4) var(--charmanderColor3),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 4) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 4) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 4) var(--pixelColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 4) var(--pixelColor2),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 4) var(--pixelColor2),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 5) var(--pixelColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 5) var(--charmanderColor3),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 5) var(--charmanderColor3),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 5) var(--pixelColor2),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 5) var(--pixelColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 5) var(--pixelColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 5) var(--pixelColor2),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 5) var(--pixelColor2),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 5) var(--pixelColor2),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 5) var(--pixelColor2),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 5) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 5) var(--charmanderColor3),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 5) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 5) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 5) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 5) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 5) var(--pixelColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 5) var(--pixelColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 5) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 6) var(--pixelColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 6) var(--pixelColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 6) var(--pixelColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 6) var(--charmanderColor2),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* -17) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 6) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 6) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 6) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 7) var(--charmanderColor3),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 7) var(--charmanderColor3),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 7) var(--charmanderColor3),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 7) var(--charmanderColor3),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 7) var(--pixelColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 7) var(--pixelColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 7) var(--pixelColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 7) var(--charmanderColor3),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 7) var(--charmanderColor2),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* -17) calc(var(--pixel-size)* 7) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 7) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 7) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 7) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 8) var(--charmanderColor3),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 8) var(--charmanderColor4),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 8) var(--charmanderColor4),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 8) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 8) var(--pixelColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 8) var(--pixelColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 8) var(--pixelColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 8) var(--charmanderColor3),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 8) var(--charmanderColor2),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -17) calc(var(--pixel-size)* 8) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 8) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 8) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 9) var(--charmanderColor4),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 9) var(--charmanderColor4),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 9) var(--charmanderColor4),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 9) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 9) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 9) var(--charmanderColor3),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 9) var(--charmanderColor3),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 9) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 9) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 9) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 10) var(--charmanderColor4),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 10) var(--charmanderColor4),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 10) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 10) var(--pixelColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 10) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 10) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 10) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 12) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 12) var(--pixelColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 12) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 12) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 13) var(--pixelColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 13) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 13) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 13) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 14) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 14) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 14) var(--pixelColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 14) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 14) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 14) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 15) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 15) var(--charmanderColor2),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 15) var(--pixelColor1),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 15) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 15) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 15) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 15) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 15) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 16) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 16) var(--charmanderColor2),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 16) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 16) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 16) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 16) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 16) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 16) var(--charmanderColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 16) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 17) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 17) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 17) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 17) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 18) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 18) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 18) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 19) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 19) var(--charmanderColor2),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 19) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 19) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 19) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 19) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 19) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 19) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 19) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 21) var(--pixelColor1);
+}
+
+html:has(section:nth-of-type(2) article fieldset:nth-of-type(5) button:nth-of-type(2):active) section:nth-of-type(1) article div span:nth-of-type(1) {
+    --pixel-size: 5px;
+    width: var(--pixel-size);
+    aspect-ratio: 1 / 1;
+    position: absolute;
+    left: 55%;
+    top: 30%;
+    transition: 0s;
+    background-color: #000000;
+    z-index: -5;
+
+    box-shadow: calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 0) var(--pixelColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 0) var(--pixelColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 0) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 1) var(--pixelColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 1) var(--pixelColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 1) var(--pixelColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 1) var(--pixelColor2),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 1) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 2) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 2) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 2) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 2) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 2) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 2) var(--pixelColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 2) var(--pixelColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 2) var(--pixelColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 2) var(--pixelColor2),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 2) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 3) var(--charmanderColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 3) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 3) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 3) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 3) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 3) var(--pixelColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 3) var(--pixelColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 3) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 3) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 3) var(--pixelColor2),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 3) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 4) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 4) var(--pixelColor2),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 4) var(--pixelColor2),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 4) var(--pixelColor2),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 4) var(--charmanderColor3),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 4) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 4) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 4) var(--pixelColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 4) var(--charmanderColor3),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 4) var(--charmanderColor3),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 4) var(--charmanderColor3),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 4) var(--charmanderColor3),
+        calc(var(--pixel-size)* 6) calc(var(--pixel-size)* 4) var(--charmanderColor3),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 5) var(--pixelColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 5) var(--charmanderColor3),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 5) var(--charmanderColor3),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 5) var(--pixelColor2),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 5) var(--pixelColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 5) var(--pixelColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 5) var(--pixelColor2),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 5) var(--pixelColor2),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 5) var(--pixelColor2),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 5) var(--pixelColor2),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 5) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 5) var(--charmanderColor3),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 5) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 5) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 5) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 5) var(--charmanderColor3),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 5) var(--charmanderColor3),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 5) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 5) var(--charmanderColor1),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 5) var(--charmanderColor1),
+        calc(var(--pixel-size)* 6) calc(var(--pixel-size)* 5) var(--charmanderColor3),
+        calc(var(--pixel-size)* 7) calc(var(--pixel-size)* 5) var(--charmanderColor3),
+        calc(var(--pixel-size)* 8) calc(var(--pixel-size)* 5) var(--charmanderColor3),
+        calc(var(--pixel-size)* 9) calc(var(--pixel-size)* 5) var(--charmanderColor3),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 6) var(--pixelColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 6) var(--pixelColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 6) var(--pixelColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 6) var(--charmanderColor2),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* -17) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 6) var(--charmanderColor5),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 6) var(--charmanderColor5),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* 6) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* 7) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* 8) calc(var(--pixel-size)* 6) var(--charmanderColor1),
+        calc(var(--pixel-size)* 9) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* 10) calc(var(--pixel-size)* 6) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 6) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 6) var(--pixelColor2),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 6) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 7) var(--charmanderColor3),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 7) var(--charmanderColor3),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 7) var(--charmanderColor3),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 7) var(--charmanderColor3),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 7) var(--pixelColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 7) var(--pixelColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 7) var(--pixelColor2),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 7) var(--pixelColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 7) var(--charmanderColor3),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 7) var(--charmanderColor2),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* -17) calc(var(--pixel-size)* 7) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 7) var(--charmanderColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 7) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 7) var(--charmanderColor5),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 7) var(--charmanderColor5),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 7) var(--charmanderColor5),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 7) var(--charmanderColor5),
+        calc(var(--pixel-size)* 6) calc(var(--pixel-size)* 7) var(--charmanderColor5),
+        calc(var(--pixel-size)* 7) calc(var(--pixel-size)* 7) var(--charmanderColor5),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 8) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 8) var(--charmanderColor3),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 8) var(--charmanderColor4),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 8) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 8) var(--pixelColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 8) var(--pixelColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 8) var(--pixelColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 8) var(--charmanderColor3),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 8) var(--charmanderColor2),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* -17) calc(var(--pixel-size)* 8) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 8) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 8) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 8) var(--charmanderColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 8) var(--charmanderColor2),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 8) var(--charmanderColor2),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 8) var(--charmanderColor5),
+        calc(var(--pixel-size)* 6) calc(var(--pixel-size)* 8) var(--charmanderColor5),
+        calc(var(--pixel-size)* 7) calc(var(--pixel-size)* 8) var(--charmanderColor5),
+        calc(var(--pixel-size)* 8) calc(var(--pixel-size)* 8) var(--charmanderColor5),
+        calc(var(--pixel-size)* 9) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* 10) calc(var(--pixel-size)* 8) var(--charmanderColor1),
+        calc(var(--pixel-size)* 11) calc(var(--pixel-size)* 8) var(--charmanderColor3),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 9) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 9) var(--charmanderColor4),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 9) var(--charmanderColor4),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 9) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 9) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 9) var(--charmanderColor3),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 9) var(--charmanderColor3),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 9) var(--charmanderColor3),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 9) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 9) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 9) var(--charmanderColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 9) var(--charmanderColor2),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 9) var(--charmanderColor2),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 9) var(--charmanderColor2),
+        calc(var(--pixel-size)* 6) calc(var(--pixel-size)* 9) var(--charmanderColor5),
+        calc(var(--pixel-size)* 7) calc(var(--pixel-size)* 9) var(--charmanderColor5),
+        calc(var(--pixel-size)* 8) calc(var(--pixel-size)* 9) var(--charmanderColor5),
+        calc(var(--pixel-size)* 9) calc(var(--pixel-size)* 9) var(--charmanderColor5),
+        calc(var(--pixel-size)* 10) calc(var(--pixel-size)* 9) var(--charmanderColor1),
+        calc(var(--pixel-size)* 11) calc(var(--pixel-size)* 9) var(--charmanderColor3),
+        calc(var(--pixel-size)* 12) calc(var(--pixel-size)* 9) var(--charmanderColor3),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 10) var(--charmanderColor3),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 10) var(--charmanderColor4),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 10) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 10) var(--pixelColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 10) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 10) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 10) var(--charmanderColor5),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 10) var(--charmanderColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 10) var(--charmanderColor5),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 10) var(--charmanderColor5),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 10) var(--charmanderColor5),
+        calc(var(--pixel-size)* 6) calc(var(--pixel-size)* 10) var(--charmanderColor5),
+        calc(var(--pixel-size)* 7) calc(var(--pixel-size)* 10) var(--charmanderColor5),
+        calc(var(--pixel-size)* 8) calc(var(--pixel-size)* 10) var(--charmanderColor1),
+        calc(var(--pixel-size)* 9) calc(var(--pixel-size)* 10) var(--charmanderColor3),
+        calc(var(--pixel-size)* 10) calc(var(--pixel-size)* 10) var(--charmanderColor3),
+        calc(var(--pixel-size)* 13) calc(var(--pixel-size)* 10) var(--charmanderColor3),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 11) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 11) var(--charmanderColor3),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 11) var(--charmanderColor5),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 11) var(--charmanderColor5),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 11) var(--charmanderColor5),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 11) var(--charmanderColor5),
+        calc(var(--pixel-size)* 6) calc(var(--pixel-size)* 11) var(--charmanderColor1),
+        calc(var(--pixel-size)* 7) calc(var(--pixel-size)* 11) var(--charmanderColor3),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 12) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 12) var(--pixelColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 12) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 12) var(--charmanderColor3),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 12) var(--charmanderColor1),
+        calc(var(--pixel-size)* 6) calc(var(--pixel-size)* 12) var(--charmanderColor3),
+        calc(var(--pixel-size)* 7) calc(var(--pixel-size)* 12) var(--charmanderColor3),
+        calc(var(--pixel-size)* 8) calc(var(--pixel-size)* 12) var(--charmanderColor3),
+        calc(var(--pixel-size)* 9) calc(var(--pixel-size)* 12) var(--charmanderColor3),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 13) var(--pixelColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 13) var(--pixelColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 13) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 13) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 13) var(--charmanderColor3),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 13) var(--charmanderColor3),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 13) var(--charmanderColor3),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 13) var(--charmanderColor3),
+        calc(var(--pixel-size)* 6) calc(var(--pixel-size)* 13) var(--charmanderColor3),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 14) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 14) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 14) var(--pixelColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* -16) calc(var(--pixel-size)* 14) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 14) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 14) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 14) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 15) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 15) var(--charmanderColor2),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 15) var(--pixelColor1),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 15) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 15) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 15) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 15) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 15) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 15) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 16) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 16) var(--charmanderColor2),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 16) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 16) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 16) var(--charmanderColor1),
+        calc(var(--pixel-size)* -15) calc(var(--pixel-size)* 16) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 16) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 16) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 16) var(--charmanderColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 16) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 17) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 17) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* -14) calc(var(--pixel-size)* 17) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 17) var(--charmanderColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 17) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 17) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 18) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* -13) calc(var(--pixel-size)* 18) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 18) var(--charmanderColor2),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 18) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 18) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 19) var(--charmanderColor2),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 19) var(--charmanderColor2),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 19) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 19) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* -11) calc(var(--pixel-size)* 19) var(--pixelColor1),
+        calc(var(--pixel-size)* -12) calc(var(--pixel-size)* 19) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 19) var(--charmanderColor2),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 19) var(--charmanderColor2),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 19) var(--charmanderColor1),
+        calc(var(--pixel-size)* 5) calc(var(--pixel-size)* 19) var(--pixelColor1),
+        calc(var(--pixel-size)* -1) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* -2) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 20) var(--charmanderColor1),
+        calc(var(--pixel-size)* -10) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* 0) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* 1) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* 2) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* 3) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* 4) calc(var(--pixel-size)* 20) var(--pixelColor1),
+        calc(var(--pixel-size)* -3) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -4) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -5) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -6) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -7) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -8) calc(var(--pixel-size)* 21) var(--pixelColor1),
+        calc(var(--pixel-size)* -9) calc(var(--pixel-size)* 21) var(--pixelColor1);
 }
